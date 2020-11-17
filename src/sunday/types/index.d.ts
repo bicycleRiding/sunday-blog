@@ -6,9 +6,11 @@ declare module "koa" {
 	interface DefaultContext extends IRouterParamContext {
 		apiSuccess<T = any>(status: number, data: T): void
 		apiFail<T = any>(status: number, err: T): void
-		config: Sunday.Configer
+		config: () => Sunday.Configer
 		model: Sunday.Modeler
-		verifyBody(op:{ [key: string]: Sunday.verifyBodyOp}): void
+		verifyBody(op: {
+			[key: string]: Sunday.verifyBodyOp
+		}): void
 	}
 }
 
@@ -26,6 +28,8 @@ declare namespace Sunday {
 
 	interface Configer {
 		port?: number
+		userToken?: string
+		secretKey?: string
 	}
 
 	interface Modeler {
@@ -44,7 +48,6 @@ declare namespace Sunday {
 	}
 
 	interface verifyBodyOp {
-		type: any
 		require?: boolean
 		default?: any
 	}

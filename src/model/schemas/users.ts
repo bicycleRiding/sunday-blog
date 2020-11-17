@@ -1,4 +1,6 @@
-import { Schema, Types } from "mongoose"
+import { Schema } from "mongoose"
+import { createHmac } from "crypto"
+import config from "../../config"
 
 const usersSchema = new Schema({
 	username: {
@@ -8,7 +10,14 @@ const usersSchema = new Schema({
 	},
 	password: {
 		type: String,
-		required: true
+		required: true,
+		set(val: string) {
+			const hamc = createHmac(
+				"sha256",
+				`${val}${config.secretKey}`
+			)
+			return hamc.digest("hex")
+		}
 	},
 	sex: {
 		type: String,

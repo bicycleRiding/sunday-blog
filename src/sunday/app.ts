@@ -1,10 +1,5 @@
 import Application from "koa"
-import {
-	Configer,
-	MiddlewareList,
-	Modeler,
-	verifyBodyOp
-} from "./types"
+import { Configer, MiddlewareList, Modeler } from "./types"
 
 class Sunday extends Application {
 	config?: Configer
@@ -23,7 +18,7 @@ class Sunday extends Application {
 		this.context.apiFail = function (status, err) {
 			this.body = { msg: "fail", data: err }
 		}
-		this.context.config = this.config || {}
+		this.context.config = () => <Configer>this.config
 		this.context.verifyBody = function (options) {
 			let { body } = this.request
 
@@ -37,16 +32,6 @@ class Sunday extends Application {
 					)
 				}
 
-				// 校验类型
-				if (body[key]) {
-					const isType =
-						body[key] instanceof options[key].type
-					this.assert(
-						isType,
-						400,
-						`${key}类型错误, 应该为${options[key].type.name}`
-					)
-				}
 				// 默认值
 				this.request.body[key] =
 					body[key] || options[key].default

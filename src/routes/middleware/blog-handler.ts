@@ -7,11 +7,9 @@ export async function blogCreateHandler(
 ) {
 	ctx.verifyBody({
 		title: {
-			type: String,
 			require: true
 		},
 		content: {
-			type: String,
 			require: true
 		}
 	})
