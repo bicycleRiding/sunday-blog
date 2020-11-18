@@ -20,16 +20,12 @@ class Sunday extends Application {
 		}
 		this.context.config = () => <Configer>this.config
 		this.context.verifyBody = function (options) {
-			let { body } = this.request
+			let body = this.request.body
 
 			Object.keys(options).forEach(key => {
 				// 校验必填项
 				if (options[key].require) {
-					this.assert(
-						body[key],
-						400,
-						`${options[key]}为必填项`
-					)
+					this.assert(body[key], 400, `${key}为必填项`)
 				}
 
 				// 默认值

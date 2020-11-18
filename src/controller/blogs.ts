@@ -4,22 +4,54 @@ import { Controller } from "../sunday/types"
 class BlogsController implements Controller {
 	async index(ctx: Context, next: Next) {
 		const blogs = await ctx.model.Blog.find().populate(
-			"content"
+			"author"
 		)
 		ctx.apiSuccess(200, blogs)
 		await next()
 	}
-	async create(ctx: Context, next: Next) {
-		let blog = await ctx.model.Blog.create(ctx.state.blog)
-		let blog_content = await ctx.model.BlogContent.create(
-			ctx.state.blog_content
-		)
-		const res = {
-			title: blog.get("title"),
-			content: blog_content.get("main"),
-			create_time: blog.get("create_time")
+	async show(ctx: Context, next: Next) {
+		const id: number = ctx.params.id
+		const blog = await ctx.model.Blog.findById(id)
+		if (blog) {
+			ctx.apiSuccess(200, blog)
+		} else {
+			ctx.throw(400, "无法获取该用户")
 		}
-		ctx.apiSuccess(200, res)
+		await next()
+	}
+	async create(ctx: Context, next: Next) {
+		// const { title, content, author_id } = ctx.state.blog
+		// let author
+		// try {
+		// 	author = await ctx.model.Author.findById(author_id)
+		// } catch (err) {
+		// 	ctx.throw(400, "无法找到作者")
+		// }
+
+		// if (!author) ctx.throw(400, "无法找到作者")
+
+		// const blog = await ctx.model.Blog.create({
+		// 	title,
+		// 	content,
+		// 	author
+		// })
+		// if (!blog) ctx.throw(500, "创建博客错误")
+		// const { _id: content_id, main } = ctx.state.blog_content
+		// const blogContent = await ctx.model.BlogContent.create({
+		// 	_id: content_id,
+		// 	main
+		// })
+
+		// if (!blogContent) ctx.throw(500, "创建博客失败")
+		// const res = { blog, content: blogContent.get("main") }
+
+		// ctx.apiSuccess(200, res)
+		await next()
+	}
+	async update(ctx: Context, next: Next) {
+		await next()
+	}
+	async destroy(ctx: Context, next: Next) {
 		await next()
 	}
 }

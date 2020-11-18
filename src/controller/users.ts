@@ -32,8 +32,15 @@ class UserController implements Controller {
 			password,
 			sex
 		})
+
 		if (!user) {
 			ctx.throw(500, "创建用户失败")
+		}
+		const author = await ctx.model.Author.create({
+			user: user.get("_id")
+		})
+		if (!author) {
+			ctx.throw(500, "创建作者失败")
 		}
 		ctx.apiSuccess(200, {
 			_id: user.get("_id"),
@@ -65,17 +72,22 @@ class UserController implements Controller {
 	}
 	async destroy(ctx: Context, next: Next) {
 		const id = ctx.params.id as string
-		const user = await ctx.model.User.findByIdAndDelete(
-			id
-		).catch(err => {
-			ctx.throw(500, "删除失败")
-		})
-		if (user) {
-			ctx.apiSuccess(200, null)
-		} else {
-			ctx.throw(400, "删除失败, 无此用户")
-		}
-
+		await ctx.model.User.findByIdAndDelete(id)
+			.then(user => {
+				if (user) {
+					return ctx.model.Author.findByIdAndDelete(
+						user._id
+					)
+				} else {
+					ctx.throw(400, "用户已被删除, 请不要重复删除")
+				}
+			})
+			.then(() => {
+				ctx.apiSuccess(200, "用户删除成功")
+			})
+			.catch(err => {
+				ctx.throw(500, err.message || "删除失败")
+			})
 		await next()
 	}
 }

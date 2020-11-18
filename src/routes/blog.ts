@@ -9,10 +9,13 @@ const blogsRouter = new Router<any, DefaultContext>({
 
 // restful-api
 blogsRouter.get("/", blogsController.index)
+blogsRouter.get("/:id", blogsController.show)
 blogsRouter.post(
 	"/",
 	blogCreateHandler,
 	blogsController.create
 )
+blogsRouter.put("/:id", blogsController.update)
+blogsRouter.delete("/:id", blogsController.destroy)
 
 export default blogsRouter
