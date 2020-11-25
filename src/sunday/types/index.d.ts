@@ -1,5 +1,6 @@
 import Koa, { Middleware } from "koa"
 import { IRouterParamContext } from "koa-router"
+import cors from "koa2-cors"
 import { Model, Document } from "mongoose"
 
 declare module "koa" {
@@ -30,6 +31,7 @@ declare namespace Sunday {
 		port?: number
 		userToken?: string
 		secretKey?: string
+		cors?: cors.Options
 	}
 
 	interface Modeler {

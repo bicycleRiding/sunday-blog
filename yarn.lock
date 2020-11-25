@@ -126,6 +126,13 @@
   dependencies:
     "@types/koa" "*"
 
+"@types/koa2-cors@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.npm.taobao.org/@types/koa2-cors/download/@types/koa2-cors-2.0.1.tgz#76a635cadc9c10e9d29a209fa2db28529dfc765a"
+  integrity sha1-dqY1ytycEOnSmiCfotsoUp38dlo=
+  dependencies:
+    "@types/koa" "*"
+
 "@types/koa@*", "@types/koa@^2.11.6":
   version "2.11.6"
   resolved "https://registry.npm.taobao.org/@types/koa/download/@types/koa-2.11.6.tgz?cache=0&sync_timestamp=1605054034293&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fkoa%2Fdownload%2F%40types%2Fkoa-2.11.6.tgz#b7030caa6b44af801c2aea13ba77d74aff7484d5"
@@ -964,6 +971,11 @@ koa-unless@^1.0.7:
   version "1.0.7"
   resolved "https://registry.npm.taobao.org/koa-unless/download/koa-unless-1.0.7.tgz#b9df375e2b4da3043918d48622520c2c0b79f032"
   integrity sha1-ud83XitNowQ5GNSGIlIMLAt58DI=
+
+koa2-cors@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.npm.taobao.org/koa2-cors/download/koa2-cors-2.0.6.tgz#9ad23df3a0b9bb84530b46f5944f3fb576086554"
+  integrity sha1-mtI986C5u4RTC0b1lE8/tXYIZVQ=
 
 koa@^2.13.0:
   version "2.13.0"
