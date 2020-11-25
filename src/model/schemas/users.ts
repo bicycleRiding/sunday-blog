@@ -1,4 +1,4 @@
-import { Schema } from "mongoose"
+import { Schema, Types } from "mongoose"
 import { createHmac } from "crypto"
 import config from "../../config"
 
@@ -23,7 +23,13 @@ const usersSchema = new Schema({
 		type: String,
 		enum: ["男", "女", "未知"],
 		default: "未知"
-	}
+	},
+	blogs: [
+		{
+			type: Types.ObjectId,
+			ref: "users"
+		}
+	]
 })
 
 export { usersSchema }
