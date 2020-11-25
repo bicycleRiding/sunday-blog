@@ -12,8 +12,8 @@ const blogsSchema = new Schema({
 		ref: "authors"
 	},
 	content: {
-		type: Types.ObjectId,
-		ref: "blog_contents"
+		type: String,
+		default: ""
 	},
 	create_time: {
 		type: String,
@@ -24,4 +24,5 @@ const blogsSchema = new Schema({
 		type: String
 	}
 })
+
 export { blogsSchema }
