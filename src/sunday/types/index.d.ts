@@ -34,9 +34,7 @@ declare namespace Sunday {
 
 	interface Modeler {
 		User: Model<Document>
-		Author: Model<Document>
 		Blog: Model<Document>
-		BlogContent: Model<Document>
 	}
 
 	interface Controller {

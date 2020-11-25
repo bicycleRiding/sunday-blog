@@ -24,12 +24,4 @@ const blogsSchema = new Schema({
 		type: String
 	}
 })
-
-const blog_contentsSchema = new Schema({
-	main: {
-		type: String,
-		default: ""
-	}
-})
-
-export { blogsSchema, blog_contentsSchema }
+export { blogsSchema }
