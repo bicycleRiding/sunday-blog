@@ -12,7 +12,7 @@ export const IDFormatError: Middleware = async (
 			"Cast to ObjectId failed for value"
 		)
 		if (notFoundUser) {
-			ctx.throw(400, "id格式错误, 请携带正确id")
+			ctx.throw(400, "id格式错误, 请携带正确格式id")
 		} else {
 			ctx.throw(500, err.message)
 		}

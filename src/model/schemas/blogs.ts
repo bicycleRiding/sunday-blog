@@ -9,7 +9,7 @@ const blogsSchema = new Schema({
 	},
 	author: {
 		type: Types.ObjectId,
-		ref: "authors"
+		ref: "users" // 标识去哪个集合里边找
 	},
 	content: {
 		type: String,

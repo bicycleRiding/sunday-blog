@@ -1,4 +1,5 @@
 import { Context, Next } from "koa"
+import { Document } from "mongoose"
 import { Controller } from "../../sunday"
 
 class UserController implements Controller {
@@ -14,8 +15,9 @@ class UserController implements Controller {
 		const user = await ctx.model.User.findOne({
 			_id: id
 		}).select("-password")
+
 		if (!user) {
-			ctx.throw(400, "该用户未找到, 请确认id是否正确")
+			ctx.throw(400, "该用户未找到, 请确保id正确")
 		} else {
 			ctx.apiSuccess(200, user)
 		}
@@ -40,7 +42,6 @@ class UserController implements Controller {
 		}
 		await next()
 	}
-	// TODO 等待blog接口完成后补充
 	async update(ctx: Context, next: Next) {
 		const { username, password, sex } = ctx.request.body
 		const id: number = ctx.params.id
@@ -58,19 +59,29 @@ class UserController implements Controller {
 		)
 
 		if (!user) {
-			ctx.throw(500, "用户无法更新, 请确认id是否正确")
+			ctx.throw(500, "用户无法更新, 请确保id正确")
 		} else {
 			ctx.apiSuccess(200, user)
 		}
+		await next()
 	}
 	async destroy(ctx: Context, next: Next) {
 		const id: number = ctx.params.id
 		const user = await ctx.model.User.findByIdAndDelete(id)
 		if (user) {
+			ctx.state.user = user
 			ctx.apiSuccess(200, "删除成功")
 		} else {
-			ctx.throw(400, "删除失败, 请确认id是否正确")
+			ctx.throw(400, "删除失败, 请确保id正确")
 		}
+		await next()
+	}
+	async cleanBlogsToUser(ctx: Context, next: Next) {
+		const user: Document = ctx.state.user
+		const blogs_id: string[] = user.get("blogs")
+		blogs_id.forEach(
+			async id => await ctx.model.Blog.findByIdAndDelete(id)
+		)
 		await next()
 	}
 }

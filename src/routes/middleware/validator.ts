@@ -18,3 +18,19 @@ export const userCreateValidator: Middleware = async (
 
 	await next()
 }
+
+export const blogCreateValidator: Middleware = async (
+	ctx,
+	next
+) => {
+	ctx.verifyBody({
+		title: {
+			require: true
+		},
+		author_id: {
+			require: true
+		}
+	})
+
+	await next()
+}

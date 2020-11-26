@@ -21,13 +21,16 @@ const usersSchema = new Schema({
 	},
 	sex: {
 		type: String,
-		enum: ["男", "女", "未知"],
+		enum: {
+			values: ["男", "女", "未知"],
+			message: "sex必须是男, 女或者是未知"
+		},
 		default: "未知"
 	},
 	blogs: [
 		{
 			type: Types.ObjectId,
-			ref: "users"
+			ref: "blogs"
 		}
 	]
 })
