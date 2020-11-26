@@ -25,7 +25,8 @@ userRouter.put("/:id", IDFormatError, userController.update)
 userRouter.delete(
 	"/:id",
 	IDFormatError,
-	userController.destroy
+	userController.destroy,
+	userController.cleanBlogsToUser
 )
 
 export default userRouter
